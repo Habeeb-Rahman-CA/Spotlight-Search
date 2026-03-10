@@ -1,0 +1,14 @@
+-I
+C:/Users/habee/Desktop/Habeeb/DesktopApps/SpotlightSearch/build
+-I
+C:/Users/habee/Desktop/Habeeb/DesktopApps/SpotlightSearch/build/SpotlightSearch
+-I
+C:/Users/habee/Desktop/Habeeb/DesktopApps/SpotlightSearch/build
+-I
+C:/Qt/6.10.2/mingw_64/qml
+--resource
+C:/Users/habee/Desktop/Habeeb/DesktopApps/SpotlightSearch/build/.qt/rcc/qmake_SpotlightSearch.qrc
+--resource
+C:/Users/habee/Desktop/Habeeb/DesktopApps/SpotlightSearch/build/.qt/rcc/appSpotlightSearch_raw_qml_0.qrc
+--module
+SpotlightSearch
