@@ -1,6 +1,0 @@
-module SpotlightSearch
-typeinfo appSpotlightSearch.qmltypes
-prefer :/qt/qml/SpotlightSearch/
-Main 254.0 Main.qml
-depends QtQuick
-
