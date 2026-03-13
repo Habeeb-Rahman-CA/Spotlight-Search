@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 
 #ifdef Q_OS_WIN
     // Register Ctrl+Space hotkey
-    RegisterHotKey(NULL, 1, MOD_CONTROL, VK_SPACE);
+    RegisterHotKey(NULL, 1, MOD_CONTROL | MOD_SHIFT, VK_SPACE);
     app.installNativeEventFilter(new HotkeyFilter(&backend));
 #endif
 
@@ -79,12 +79,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("Backend", &backend);
     engine.addImageProvider("fileicon", new FileIconProvider);
 
-    QObject::connect(
-        &engine,
-        &QQmlApplicationEngine::objectCreationFailed,
-        &app,
-        []() { QCoreApplication::exit(-1); },
-        Qt::QueuedConnection);
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed, &app,
+                     []() { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.loadFromModule("Trinode", "Main");
 
     int ret = app.exec();

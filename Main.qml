@@ -53,18 +53,21 @@ Window {
     Rectangle {
         id: container
         anchors.fill: parent
-        radius: 14
-        color: Qt.rgba(0.12, 0.12, 0.14, 0.92)
-        border.color: Qt.rgba(1, 1, 1, 0.08)
+        radius: 24
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: Qt.rgba(0.15, 0.15, 0.18, 0.75) }
+            GradientStop { position: 1.0; color: Qt.rgba(0.08, 0.08, 0.1, 0.85) }
+        }
+        border.color: Qt.rgba(1, 1, 1, 0.2)
         border.width: 1
 
         // Drop shadow effect
         layer.enabled: true
         layer.effect: MultiEffect {
             shadowEnabled: true
-            shadowColor: Qt.rgba(0, 0, 0, 0.5)
-            shadowBlur: 1.0
-            shadowVerticalOffset: 8
+            shadowColor: Qt.rgba(0, 0, 0, 0.4)
+            shadowBlur: 2.0
+            shadowVerticalOffset: 12
             shadowHorizontalOffset: 0
         }
 
@@ -159,7 +162,7 @@ Window {
                         Rectangle {
                             anchors.fill: parent
                             anchors.margins: -6
-                            radius: 6
+                            radius: 8
                             color: Qt.rgba(1, 1, 1, 0.06)
                             z: -1
                         }
@@ -210,11 +213,11 @@ Window {
                         anchors.fill: parent
                         anchors.leftMargin: 8
                         anchors.rightMargin: 8
-                        radius: 10
+                        radius: 14
                         color: resultsList.currentIndex === index
-                               ? Qt.rgba(1, 1, 1, 0.08)
+                               ? Qt.rgba(1, 1, 1, 0.12)
                                : hoverArea.containsMouse
-                                 ? Qt.rgba(1, 1, 1, 0.04)
+                                 ? Qt.rgba(1, 1, 1, 0.06)
                                  : "transparent"
 
                         Behavior on color {
@@ -231,7 +234,7 @@ Window {
                             Rectangle {
                                 width: 34
                                 height: 34
-                                radius: 8
+                                radius: 10
                                 color: Qt.rgba(1, 1, 1, 0.06)
 
                                 Image {
@@ -285,7 +288,7 @@ Window {
                                 visible: model.type !== undefined
                                 width: typeLabel.implicitWidth + 14
                                 height: 22
-                                radius: 6
+                                radius: 8
                                 color: Qt.rgba(1, 1, 1, 0.05)
 
                                 Text {

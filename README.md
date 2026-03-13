@@ -11,7 +11,7 @@ A macOS Spotlight-inspired application launcher for **Windows**, built with **Qt
 - **⌨️ Keyboard First** — Navigate results with `↑` / `↓` arrow keys, dismiss with `Escape`
 - **🖱️ Mouse Support** — Hover to highlight, click to launch
 - **🌑 Frosted Glass UI** — Frameless, always-on-top overlay with a dark translucent design
-- **🔒 Global Hotkey** — Toggle the search window from anywhere with `Ctrl + Space`
+- **🔒 Global Hotkey** — Toggle the search window from anywhere with `Ctrl + Shift + Space`
 - **📁 File Icons** — Displays native system icons for each result
 - **🔕 System Tray Friendly** — Runs silently in the background; doesn't appear in the taskbar
 
@@ -95,7 +95,7 @@ cp /c/Qt/Tools/mingw1310_64/bin/libgcc_s_seh-1.dll \
 
 | Key | Action |
 |---|---|
-| `Ctrl + Space` | Toggle search window (global) |
+| `Ctrl + Shift + Space` | Toggle search window (global) |
 | `↑` / `↓` | Navigate results |
 | `Enter` | Launch selected result |
 | `Escape` | Dismiss search window |
@@ -110,7 +110,7 @@ cp /c/Qt/Tools/mingw1310_64/bin/libgcc_s_seh-1.dll \
    - **Documents** folder
 2. **As you type**, the query is matched case-insensitively against indexed names (up to 10 results shown)
 3. **On launch**, the file is opened via `QDesktopServices::openUrl`, which respects file associations
-4. The **global hotkey** (`Ctrl + Space`) is registered via the Windows `RegisterHotKey` API and caught by a native event filter
+4. The **global hotkey** (`Ctrl + Shift + Space`) is registered via the Windows `RegisterHotKey` API and caught by a native event filter
 
 ---
 
