@@ -18,6 +18,10 @@ qt_add_qml_module(appTrinode
     URI Trinode
     QML_FILES
         Main.qml
+    RESOURCES
+        assets/search.svg
+        assets/return.svg
+        assets/logo.png
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

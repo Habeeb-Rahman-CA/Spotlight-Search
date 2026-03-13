@@ -6,6 +6,9 @@
 #include <QIcon>
 #include <QFileInfo>
 #include <QPixmap>
+#include <QSystemTrayIcon>
+#include <QMenu>
+#include <QAction>
 #include "backend.h"
 
 class FileIconProvider : public QQuickImageProvider
@@ -52,7 +55,17 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     app.setApplicationName("Trinode");
     app.setOrganizationName("Trinode");
+    app.setWindowIcon(QIcon(":/qt/qml/Trinode/assets/logo.png"));
     app.setQuitOnLastWindowClosed(false);
+
+    // System Tray Icon
+    QSystemTrayIcon trayIcon(QIcon(":/qt/qml/Trinode/assets/logo.png"), &app);
+    QMenu *trayMenu = new QMenu();
+    QAction *quitAction = trayMenu->addAction("Quit Trinode");
+    QObject::connect(quitAction, &QAction::triggered, &app, &QCoreApplication::quit);
+    trayIcon.setContextMenu(trayMenu);
+    trayIcon.setToolTip("Trinode - Search Everything");
+    trayIcon.show();
 
     Backend backend;
 

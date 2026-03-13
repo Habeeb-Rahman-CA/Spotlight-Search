@@ -84,10 +84,12 @@ Window {
                     spacing: 14
 
                     // Search icon
-                    Text {
-                        text: "🔍"
-                        font.pixelSize: 20
+                    Image {
+                        source: "assets/search.svg"
+                        width: 20
+                        height: 20
                         opacity: 0.5
+                        sourceSize: Qt.size(width, height)
                     }
 
                     TextField {
@@ -299,11 +301,13 @@ Window {
                             }
 
                             // Return icon for selected item
-                            Text {
+                            Image {
                                 visible: resultsList.currentIndex === index
-                                text: "↵"
-                                font.pixelSize: 16
-                                color: Qt.rgba(1, 1, 1, 0.25)
+                                source: "assets/return.svg"
+                                width: 14
+                                height: 14
+                                opacity: 0.25
+                                sourceSize: Qt.size(width, height)
                                 Layout.alignment: Qt.AlignVCenter
 
                                 Behavior on opacity {
@@ -350,12 +354,25 @@ Window {
                 Layout.preferredHeight: 80
                 visible: searchInput.text.length > 0 && resultsModel.count === 0
 
-                Text {
+                ColumnLayout {
                     anchors.centerIn: parent
-                    text: "No results found"
-                    font.pixelSize: 14
-                    font.family: "Segoe UI"
-                    color: Qt.rgba(1, 1, 1, 0.25)
+                    spacing: 12
+
+                    Image {
+                        source: "assets/logo.png"
+                        width: 48
+                        height: 48
+                        Layout.alignment: Qt.AlignHCenter
+                        opacity: 0.2
+                    }
+
+                    Text {
+                        text: "No results found"
+                        font.pixelSize: 14
+                        font.family: "Segoe UI"
+                        color: Qt.rgba(1, 1, 1, 0.25)
+                        Layout.alignment: Qt.AlignHCenter
+                    }
                 }
             }
         }
