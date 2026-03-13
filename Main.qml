@@ -4,6 +4,8 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Effects
 
+pragma ComponentBehavior: Bound
+
 Window {
     id: root
     width: 680
@@ -194,6 +196,9 @@ Window {
                     id: resultsModel
                 }
 
+                reuseItems: true
+                boundsBehavior: Flickable.StopAtBounds
+
                 // Smooth scrolling
                 ScrollBar.vertical: ScrollBar {
                     policy: ScrollBar.AsNeeded
@@ -205,8 +210,14 @@ Window {
                 }
 
                 delegate: Item {
+                    id: delegateRoot
                     width: resultsList.width
                     height: 52
+
+                    required property int index
+                    required property string name
+                    required property string path
+                    required property var type
 
                     Rectangle {
                         id: delegateBg
@@ -214,7 +225,7 @@ Window {
                         anchors.leftMargin: 8
                         anchors.rightMargin: 8
                         radius: 14
-                        color: resultsList.currentIndex === index
+                        color: resultsList.currentIndex === delegateRoot.index
                                ? Qt.rgba(1, 1, 1, 0.12)
                                : hoverArea.containsMouse
                                  ? Qt.rgba(1, 1, 1, 0.06)
@@ -241,7 +252,7 @@ Window {
                                     anchors.centerIn: parent
                                     width: 24
                                     height: 24
-                                    source: model.path ? "image://fileicon/" + model.path : ""
+                                    source: delegateRoot.path ? "image://fileicon/" + delegateRoot.path : ""
                                     fillMode: Image.PreserveAspectFit
                                     asynchronous: true
                                 }
@@ -253,8 +264,8 @@ Window {
                                 spacing: 1
 
                                 Text {
-                                    text: model.name
-                                    color: resultsList.currentIndex === index
+                                    text: delegateRoot.name
+                                    color: resultsList.currentIndex === delegateRoot.index
                                            ? "#FFFFFF" : "#D8D8D8"
                                     font.pixelSize: 14
                                     font.weight: Font.Medium
@@ -270,10 +281,11 @@ Window {
                                 Text {
                                     text: {
                                         // Show only the filename or last folder
-                                        var parts = model.path.replace(/\\/g, "/").split("/")
+                                        var p = delegateRoot.path.replace(/\\/g, "/")
+                                        var parts = p.split("/")
                                         if (parts.length > 2)
                                             return parts.slice(-2).join(" › ")
-                                        return model.path
+                                        return delegateRoot.path
                                     }
                                     color: Qt.rgba(1, 1, 1, 0.3)
                                     font.pixelSize: 11
@@ -285,7 +297,7 @@ Window {
 
                             // Type badge
                             Rectangle {
-                                visible: model.type !== undefined
+                                visible: delegateRoot.type !== undefined
                                 width: typeLabel.implicitWidth + 14
                                 height: 22
                                 radius: 8
@@ -294,7 +306,7 @@ Window {
                                 Text {
                                     id: typeLabel
                                     anchors.centerIn: parent
-                                    text: model.type || ""
+                                    text: delegateRoot.type || ""
                                     font.pixelSize: 10
                                     font.family: "Segoe UI"
                                     font.weight: Font.Medium
@@ -305,7 +317,7 @@ Window {
 
                             // Return icon for selected item
                             Image {
-                                visible: resultsList.currentIndex === index
+                                visible: resultsList.currentIndex === delegateRoot.index
                                 source: "assets/return.svg"
                                 width: 14
                                 height: 14
@@ -325,10 +337,10 @@ Window {
                         anchors.fill: parent
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        onEntered: resultsList.currentIndex = index
+                        onEntered: resultsList.currentIndex = delegateRoot.index
                         onClicked: {
-                            resultsList.currentIndex = index
-                            Backend.launch(model.path)
+                            resultsList.currentIndex = delegateRoot.index
+                            Backend.launch(delegateRoot.path)
                             root.hide()
                             searchInput.text = ""
                         }

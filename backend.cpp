@@ -40,15 +40,27 @@ QVariantList Backend::search(const QString &query)
     
     QString lowerQuery = query.toLower();
     
+    QList<AppItem> matches;
     for (const AppItem &item : m_apps) {
         if (item.name.toLower().contains(lowerQuery)) {
-            QVariantMap map;
-            map["name"] = item.name;
-            map["path"] = item.path;
-            map["type"] = "App";
-            results.append(map);
-            if (results.size() >= 10) break; // Limit results
+            matches.append(item);
         }
+    }
+
+    // Sort: prefix matches first, then contains
+    std::sort(matches.begin(), matches.end(), [&](const AppItem &a, const AppItem &b) {
+        bool aPrefix = a.name.toLower().startsWith(lowerQuery);
+        bool bPrefix = b.name.toLower().startsWith(lowerQuery);
+        if (aPrefix != bPrefix) return aPrefix;
+        return a.name.length() < b.name.length(); // Shorter names first
+    });
+
+    for (int i = 0; i < qMin(matches.size(), 10); ++i) {
+        QVariantMap map;
+        map["name"] = matches[i].name;
+        map["path"] = matches[i].path;
+        map["type"] = "App";
+        results.append(map);
     }
     
     return results;
@@ -56,5 +68,10 @@ QVariantList Backend::search(const QString &query)
 
 void Backend::launch(const QString &path)
 {
-    QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+    if (path.isEmpty()) return;
+    bool success = QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+    if (!success) {
+        // Fallback: try to start as a process if it's an executable
+        QProcess::startDetached(path);
+    }
 }
