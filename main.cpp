@@ -50,6 +50,8 @@ private:
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    app.setApplicationName("Trinode");
+    app.setOrganizationName("Trinode");
     app.setQuitOnLastWindowClosed(false);
 
     Backend backend;
@@ -70,7 +72,7 @@ int main(int argc, char *argv[])
         &app,
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
-    engine.loadFromModule("SpotlightSearch", "Main");
+    engine.loadFromModule("Trinode", "Main");
 
     int ret = app.exec();
 

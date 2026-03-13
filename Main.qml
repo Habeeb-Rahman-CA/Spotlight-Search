@@ -13,7 +13,7 @@ Window {
                : 160)
             : 72
     visible: true
-    title: qsTr("Spotlight Search")
+    title: qsTr("Trinode")
 
     flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool
     color: "transparent"

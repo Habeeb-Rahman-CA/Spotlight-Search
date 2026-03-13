@@ -1,4 +1,4 @@
-# 🔍 Spotlight Search
+# 🔍 Trinode
 
 A macOS Spotlight-inspired application launcher for **Windows**, built with **Qt 6** and **QML**. Instantly search and launch installed applications, desktop shortcuts, and documents — all from a sleek, frosted-glass overlay window — entirely via keyboard.
 
@@ -38,7 +38,7 @@ A macOS Spotlight-inspired application launcher for **Windows**, built with **Qt
 ## 📁 Project Structure
 
 ```
-SpotlightSearch/
+Trinode/
 ├── main.cpp          # App entry point, hotkey filter, QML image provider
 ├── backend.h         # Backend class interface (search + launch)
 ├── backend.cpp       # App indexing, search logic, process launching
@@ -73,14 +73,14 @@ SpotlightSearch/
 
 The executable will be at:
 ```
-build\appSpotlightSearch.exe
+build\appTrinode.exe
 ```
 
 ### Deploy (bundle Qt DLLs)
 
 ```bash
 # Copy Qt runtime DLLs next to the executable
-/c/Qt/6.x.x/mingw_64/bin/windeployqt6.exe --qmldir . "build/appSpotlightSearch.exe"
+/c/Qt/6.x.x/mingw_64/bin/windeployqt6.exe --qmldir . "build/appTrinode.exe"
 
 # Copy MinGW runtime DLLs
 cp /c/Qt/Tools/mingw1310_64/bin/libgcc_s_seh-1.dll \
